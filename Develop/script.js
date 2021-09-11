@@ -2,7 +2,7 @@
 
 /* DEFINE ARRAYS*/
 //special character array
-var specialCharacters = ['\!','\@','\#','\$','\%','\^','\&','\*','\?'];
+var specialCharacters = ['!','@','#','$','%','^','&','*','?','+'];
 //lowercase letter array
 var lowerCharacters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 //uppercase letter array
@@ -11,7 +11,7 @@ var upperCharacters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','
 var numericCharacters = ['0','1','2','3','4','5','6','7','8','9'];
 // array for all selected options
 
-let charCodes = '';
+let charCodes = [];
 
 
 /*FUNCTION TO GENERATE PASSWORD*/
@@ -37,6 +37,20 @@ function generatePassword (passwordLength, includeLowercase, includeUppercase, i
   //ask user if numeric characters should be included
   includeNumeric=window.confirm("Do you want your password to include numeric characters?");
  
+  //VALIDATE IF USER SELECTED AT LEAST ONE CHARACTER TYPE OTHERWISE LOOP THROUGH PROMPTS AGAIN
+  while(!includeLowercase && !includeUppercase && !includeNumeric && !includeSymbol){
+   //ask user if special characters should be included
+   includeSymbol=window.confirm("Do you want your password to include special characters?");
+ 
+   //ask user if password should include lowercase characters
+   includeLowercase=window.confirm("Do you want your password to include lowercase characters?");
+   
+   //ask user if uppercase characters should be included
+   includeUppercase=window.confirm("Do you want your password to include uppercase characters?");
+  
+   //ask user if numeric characters should be included
+   includeNumeric=window.confirm("Do you want your password to include numeric characters?");  
+  }
   //concatinate all by user selected arrays to make one 
   if(includeLowercase){
     charCodes = charCodes.concat(lowerCharacters);
@@ -59,12 +73,12 @@ const passwordCharacters = [];
 
 //for loop for password length
 for( let i = 0; i < passwordLength; i++){
-const passwordCharacters = 
-  charCodes[Math.floor(Math.random() * charCodes.length)];
-  console.log(passwordCharacters);
- 
+  var randomChar = charCodes[Math.floor(Math.random() * charCodes.length)];
+  console.log(randomChar);
+  passwordCharacters.push(randomChar);
 }
-return passwordCharacters;
+  console.log(passwordCharacters);
+  return passwordCharacters;
 };
 
 // Get references to the #generate element
